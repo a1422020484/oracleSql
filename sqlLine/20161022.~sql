@@ -87,7 +87,7 @@ begin
 end;
 /
 
---8、循环变量
+--8、循环变量 loop
 declare 
    i number(2) :=1;
 begin
@@ -96,7 +96,164 @@ begin
    exit when i>10;
    --输出i的值
    dbms_output.put_line(i);
+   i :=i+1;
+   end loop;
+end;
+/
+--9、循环变量 while
+declare
+   i number(2) :=1;
+begin
+   while i<11
+   loop 
+         dbms_output.put_line(i);
+         i:=i+1;
+   end loop;
+end;
+/
 
+--插入99条记录
+declare
+   i number(3) :=1;
+begin
+   while i<100
+   loop
+         dbms_output.put_line(i);
+         insert into emp(name,age) values ('yang'||i,i);
+         i:=i+1;
+   end loop;
+end;
+/
+--删除99条记录
+declare
+   i number(3) :=1;
+begin
+   while i<100
+   loop
+         dbms_output.put_line(i);
+         delete from emp where age = i;
+         i :=i+1;
+   end loop;
+end;
+/
+--11、for 循环
+declare
+   i number(2) :=1;
+begin
+   --只能是两个点，不能多
+   for i in 1..10
+   loop
+       dbms_output.put_line(i);
+   end loop;
+end;
+/ 
+--12、游标Cursor
+   --什么是游标
+   --从上向下一次获取每一条记录的内容
+--(1)无参游标类型
+declare
+   --定义游标
+   --cursor 名称
+   cursor cemp is select name,age from emp;
+   cname emp.name%type;
+   cage  emp.age%type;
+begin
+   --打开游标,初始状态游标在第一条记录之前或之上；
+   open cemp;
+   loop
+       --向下移动游标一条。
+       fetch cemp into cname,cage;
+       --退出游标,当游标下移一次之后，找不到记录，就循环退出；
+       exit when cemp%notfound;
+       --输出结果
+       dbms_output.put_line(cname||'---'||cage);
+   end loop;
+   --关闭游标
+   close cemp;
+end;
+/
+--(2)有参游标类型
+declare 
+   cursor cemp(cage emp.age%type) is select name,age from emp where age=cage;
+   ccname emp.name%type;
+   ccage  emp.age%type;
+begin
+   --设置参数
+   open cemp(10);
+   --输入参数
+   --open cemp(&cage);
+        loop
+          fetch cemp into ccname,ccage;
+          exit when cemp%notfound;
+          --输出结果
+          dbms_output.put_line(ccname||'---'||ccage);
+        end loop;
+   close cemp;
+end;
+/
+--13、exception
+--(1)内置异常
+declare 
+   myresult varchar2(10);
+begin
+   myresult :=1/0;
+   dbms_output.put_line(10);
+exception
+   when zero_divide then
+        dbms_output.put_line('除数为0');
+     
+end;
+/
+no_data_found
+--自定义异常
+nohave_emp_found
+         
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
 
 
 
