@@ -2,11 +2,21 @@
 --1、创建存储过程
 CREATE OR REPLACE PROCEDURE INSERT_SP AS
 BEGIN
+
 INSERT INTO t_user
 SELECT * from t_user2;
 COMMIT;
+
 END INSERT_SP ;
 
+
+--没参数的话，直接 存储过程名就行 P1
+--有的话
+exec P1 参数1,参数2
+
+--如果有输出参数的话
+
+exec P1 参数1,参数2 output
 
 --2、建立JOB：
 DECLARE
