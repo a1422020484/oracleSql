@@ -172,25 +172,6 @@ begin
    close cemp;
 end;
 /
-
-create or replace procedure insert_userinfo 
-as
-       cursor emp is select id,name,address,address2 from t_user;
-       cid t_user.id%type;
-       cname t_user.name%type;
-       caddress t_user.address%type;
-       caddress2 t_user.address2%type;
-begin
-       open emp;
-       loop
-            fetch emp into cid,cname,caddress,caddress2;
-            insert into t_user2(id,name,address,address2) values(cid,cname,caddress,caddress2);
-            commit;
-            exit when emp%notfound;   
-       end loop;
-       close emp;
-end;
-/
 --(2)有参游标类型
 declare 
    cursor cemp(cage emp.age%type) is select name,age from emp where age=cage;

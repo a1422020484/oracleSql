@@ -21,7 +21,7 @@ exec P1 参数1,参数2 output
 --2、建立JOB：
 DECLARE
    job_no_123 NUMBER;   
-BEGINs
+BEGIN
    --DBMS_JOB.SUBMIT(job_no_123,'INSERT_SP;',sysdate,'TRUNC(sysdate)+1+19/24');     -- 20/24 每天晚上8点
    DBMS_JOB.SUBMIT(job_no_123,'INSERT_SP;',sysdate,'TRUNC(sysdate,''mi'') + 1 / (24*60)');     --每分钟执行一次
    COMMIT;
